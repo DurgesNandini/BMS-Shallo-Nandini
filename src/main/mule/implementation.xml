@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:book-my-show-res-tful-api="http://www.mulesoft.org/schema/mule/book-my-show-res-tful-api"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:rds="http://www.mulesoft.org/schema/mule/rds" xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/rds http://www.mulesoft.org/schema/mule/rds/current/mule-rds.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/book-my-show-res-tful-api http://www.mulesoft.org/schema/mule/book-my-show-res-tful-api/current/mule-book-my-show-res-tful-api.xsd">
+	<flow name="GetMovies" doc:id="624ebe74-be8e-4b51-8f92-975b3edbe29c" >
+		<db:select doc:name="Select" doc:id="8eecb54c-5dfa-4849-b296-ccd878921cbf" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from movies;]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="4bad6649-fc9b-4313-8203-2f5a5b288a5d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	MovieID: payload01.movieid,
+	MovieName: payload01.moviename default "",
+	MovieDescription: payload01.moviedescription default "",
+	"MovieLanguage": payload01.lang as String,
+	Price: payload01.price default 0
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="a0378137-f90b-4b2c-807b-36baf496124f" message="#[payload]"/>
+	</flow>
+	<flow name="GetMovieByID" doc:id="376369f8-98aa-49e9-82fb-d0badfa429aa" >
+		<db:select doc:name="Select" doc:id="4f6cd18a-7845-4f1f-977d-7feb28b218aa" config-ref="Database_Config">
+			<db:sql><![CDATA[select movies.moviename, movies.moviedescription, show.starttime, show.endtime, show.lang, movies.price 
+from movies inner join show on movies.movieid = show.movieid where movies.movieid = :ID;]]></db:sql>
+			<db:input-parameters><![CDATA[#[{"ID":attributes.uriParams.movie_id}]]]></db:input-parameters>
+		</db:select>
+		<choice doc:name="Choice" doc:id="9a20ff47-2824-4efb-b084-f4a67f4fe018" >
+			<when expression="#[sizeOf(payload)&gt;0]">
+				<ee:transform doc:name="Transform Message" doc:id="da463766-3236-4671-bba5-6bc52dee3d45">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	MovieName: payload01.moviename default "",
+	MovieDescription: payload01.moviedescription default "",
+	ShowStartTime: payload01.starttime as String default "",
+	ShowEndTime: payload01.endtime as String default "",
+	Language: payload01.lang default "",
+	Price: payload01.price default 0
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="20b99aab-a005-4595-b794-39672fc9e8ed" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "No record found!"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="06138c02-5c59-4783-ab4a-2be410d136b9" message="#[payload]" />
+	
+</flow>
+	<flow name="GetShows" doc:id="132360ef-4ce6-4394-8a2f-d3d08510de65" >
+		<db:select doc:name="Select" doc:id="6cf70ca3-cf8a-41ba-98e4-b74ae2d6eafa" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from show;]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="766dadd9-399d-4574-865a-0a9f342db0a5" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	ShowID: payload01.showid as String,
+	MovieID: payload01.movieid as String,
+	ShowStartTime: payload01.starttime as String default "",
+	ShowEndTime: payload01.endtime as String default "",
+	SeatType: payload01.seattype default "",
+	AvailableSeats: payload01.availableseats default 0,
+	language: payload01.lang default "",
+	price: payload01.price default 0
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="cfa6a675-8e4d-4a1c-9ed0-68023bf6b027" />
+	</flow>
+	<flow name="GetShowByID" doc:id="5660db57-266a-4502-8d96-c75d34056051" >
+		<db:select doc:name="Select" doc:id="a534e5d8-6028-4cbd-96d7-ad48cea6bdce" config-ref="Database_Config">
+			<db:sql ><![CDATA[select movies.moviename, show.starttime, show.endtime, show.seattype, show.availableseats, show.lang, movies.price 
+from movies inner join show on movies.movieid = show.movieid where showid= :ID; ]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{"ID": attributes.uriParams.shows_id}]]]></db:input-parameters>
+		</db:select>
+		<choice doc:name="Choice" doc:id="96e1d227-afd8-4c9b-8e9c-a3cbefd4718b" >
+			<when expression="#[sizeOf(payload)&gt;0]">
+				<ee:transform doc:name="Transform Message" doc:id="96a907cd-fb21-4dc3-b5de-ff6a8f508507">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	MovieName: payload01.moviename default "",
+	ShowStartTime: payload01.starttime as String default "",
+	ShowEndTime: payload01.endtime as String default "",
+	SeatType: payload01.seattype default "",
+	AvailableSeats: payload01.availableseats default 0,
+	language: payload01.lang default "",
+	price: payload01.price default 0
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="d800c773-dddd-4ece-8281-9b03cd5a1527" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "No Show Available!"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="8bfd213e-7bfa-455d-8c71-021723ca7a95" />
+	</flow>
+	<flow name="DeleteShowByID" doc:id="ce10a975-d4aa-46b0-a4ba-931e4c27ba46" >
+		<db:delete doc:name="Delete" doc:id="879a237e-7a63-45eb-934d-ec2ed9e80a4d" config-ref="Database_Config">
+			<db:sql ><![CDATA[delete from show where showid = :ID;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{"ID": attributes.uriParams.shows_id}]]]></db:input-parameters>
+		</db:delete>
+		<ee:transform doc:name="Transform Message" doc:id="cab2ada0-84ae-4e6d-9ce0-ce7d7e1061f0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Show Deleted Successfully!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="DeleteMovieByID" doc:id="9d9b84a6-005e-470d-ac6d-7b9bcef203b7" >
+		<db:delete doc:name="Delete" doc:id="8efdb49b-1356-42b8-8600-ffe273775d75" config-ref="Database_Config">
+			<db:sql ><![CDATA[delete from movies where movieid = :ID;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{"ID":attributes.uriParams.movie_id}]]]></db:input-parameters>
+		</db:delete>
+		<ee:transform doc:name="Transform Message" doc:id="e8d82fef-4b00-4536-a142-1cb91b79df77" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Movie Deleted Successfully!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="InsertMovies" doc:id="2e7d955c-0714-47ef-8125-d6aa31f1b9cf" >
+		<db:insert doc:name="Insert" doc:id="5c90e663-3193-40a0-820d-20e23afef869" config-ref="Database_Config">
+			<db:sql ><![CDATA[insert into movies values(:ID, :MovieName, :language, :desc, :price)]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	"ID": payload.MovieID,
+	"MovieName": payload.MovieName,
+	"language": payload.Language,
+	"desc": payload.MovieDescription,
+	"price": payload.Price
+	
+}]]]></db:input-parameters>
+		</db:insert>
+		<ee:transform doc:name="Transform Message" doc:id="ae090e62-d8c1-4410-880d-d12c825d3b52" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Movie Inserted Successfully!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="AddShow" doc:id="255fd8c2-80a4-4f72-bf16-1d05ece19cab" >
+		<db:insert doc:name="Insert" doc:id="467fb6b6-91df-4c0f-bcc1-1cb27c8e9917" config-ref="Database_Config">
+			<db:sql ><![CDATA[insert  into show (showid, movieid, starttime, endtime, seattype, availableseats, lang, price)
+select :ID, movies.movieid, :StartTime, :EndTime, :SeatType, :AvailableSeats, movies.lang, movies.price 
+from movies where movies.moviename = :MovieName;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	"ID": payload.ShowID,
+	"MovieName": payload.MovieName,
+	"StartTime": payload.ShowStartTime,
+	"EndTime": payload.ShowEndTime,
+	"SeatType": payload.SeatType,
+	"AvailableSeats": payload.AvailableSeats
+}]]]></db:input-parameters>
+		</db:insert>
+		<ee:transform doc:name="Transform Message" doc:id="4c501f3b-ede8-454a-b43b-96e3a4ebb3da" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Show Inserted Successfully!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="BookTicket" doc:id="574ec34a-a4fc-4737-b022-4822b4cbe3ed" >
+		<choice doc:name="Choice" doc:id="da57efd3-fb96-41c5-b29c-3c198f96a920" >
+			<when expression="#[(payload.NoOfPerson&gt;=1 and payload.NoOfPerson&lt;10)]">
+				<db:insert doc:name="Insert" doc:id="4db45a04-015f-4024-ab0d-12d2ae0a70d3" config-ref="Database_Config">
+			<db:sql><![CDATA[insert TOP(1) into bookTicket (movieid, showid, moviename, moviedate, movietime, NoOFPerson,seattype, Totalprice)
+select show.movieid, show.showid, :MovieName, :date, :Time , :NoOfPerson, :SeatType, movies.price * :NoOfPerson from show inner join movies 
+on show.movieid = movies.movieid
+where movies.moviename = :MovieName;
+]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	"MovieName": payload.MovieName,
+	"date": payload.date,
+	"Time": payload.Time,
+	"NoOfPerson": payload.NoOfPerson,
+	"SeatType": payload.SeatType
+}]]]></db:input-parameters>
+		</db:insert>
+				<db:select doc:name="Select" doc:id="222e73b4-cfc8-42c2-9684-29edcaa9d450" config-ref="Database_Config">
+			<db:sql><![CDATA[select * from bookTicket where bookid = (SELECT MAX(bookid)  FROM bookTicket);]]></db:sql>
+		</db:select>
+				<ee:transform doc:name="ETicket" doc:id="05996ca1-eaeb-4099-8140-d41bb767f6d0">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+
+---
+payload map(ticket, index)->{
+   "message": "Movie Booked Successfully. PFB ETicket Details",
+	MovieName: ticket.MovieName,
+	Audi: randomInt(4),
+	Date: ticket.moviedate,
+	Time: ticket.movietime,
+	SeatNo:[1,2,3,4],
+	TotalPrice: ticket.Totalprice
+	
+
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</when>
+			<when expression="(payload.NoOfPerson&gt;=10)">
+				
+		<db:insert doc:name="Insert" doc:id="db613459-81b9-46ef-9fd4-72254a785302" config-ref="Database_Config">
+			<db:sql><![CDATA[insert TOP(1) into bookTicket (movieid, showid, moviename, moviedate, movietime, NoOFPerson,seattype, Totalprice)
+select show.movieid, show.showid, :MovieName, :date, :Time , :NoOfPerson, :SeatType, movies.price * :NoOfPerson from show inner join movies 
+on show.movieid = movies.movieid
+where movies.moviename = :MovieName;
+]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	"MovieName": payload.MovieName,
+	"date": payload.date,
+	"Time": payload.Time,
+	"NoOfPerson": payload.NoOfPerson,
+	"SeatType": payload.SeatType
+}]]]></db:input-parameters>
+		</db:insert>
+		<db:update doc:name="Update" doc:id="7fb212d5-0d86-49ae-a4b3-97d2cb08360b" config-ref="Database_Config">
+			<db:sql><![CDATA[update bookTicket set Totalprice = Totalprice -(Totalprice * 10/100) where bookid= (SELECT MAX(bookid)  FROM bookTicket) ]]></db:sql>
+		</db:update>
+		<db:select doc:name="Select" doc:id="539ff15e-84e0-473b-bb81-ccfc193b3f36" config-ref="Database_Config">
+			<db:sql><![CDATA[select * from bookTicket where bookid = (SELECT MAX(bookid)  FROM bookTicket);]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="ETicket" doc:id="d0243940-990d-4196-8381-8468d7d0e5db">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map(ticket, index)->{
+	 "message": "Movie Booked Successfully. PFB ETicket Details",
+	MovieName: ticket.MovieName default "",
+	Audi: randomInt(4),
+	Date: ticket.moviedate,
+	Time: ticket.movietime,
+	SeatNo: [1,2,3,4,5,6,7,8,9,10],
+	"Discount": "10%",
+	TotalPrice: ticket.Totalprice
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</when>
+			<otherwise>
+				<set-payload value='#["Invalid No of Person. Kindly enter the minimum 1 person to book a ticket!"]' doc:name="Invalid No of Person" doc:id="60e48427-33b4-45f3-a641-41bcbc052b92" />
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="UpdateMovieByID" doc:id="3e1a38ad-7b3f-4b5d-a774-07743dd2b104" >
+		<db:update doc:name="Update" doc:id="eb097918-ec24-48f3-a8b7-eae12c305933" config-ref="Database_Config">
+			<db:sql ><![CDATA[update movies set moviename = :MovieName, moviedescription = :MovieDescription,
+lang= :Language, price = :Price where movieid= :MovieID;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	"MovieID":attributes.uriParams.movie_id,
+	"MovieName": payload.MovieName,
+	"MovieDescription": payload.MovieDescription,
+	"Language": payload.Language,
+	"Price": payload.Price,
+	
+}]]]></db:input-parameters>
+		</db:update>
+		<ee:transform doc:name="Updated Movie" doc:id="33f8f0a3-2d82-4421-a5a6-cf0e2b854a59" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  message: "Movie updated Successfully!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="UpdateShowByID" doc:id="be9c6fd0-cb64-4656-a3b4-3c85db390414" >
+		<db:update doc:name="Update" doc:id="3b2eb0ca-3b30-458c-8ca3-24c5ededb203" config-ref="Database_Config">
+			<db:sql ><![CDATA[update show set show.starttime = :ShowStartTime,
+show.endtime = :ShowEndTime , show.seattype = :SeatType, 
+show.availableseats = :AvailableSeats, show.lang = movies.lang, show.price = movies.price
+from show inner join movies on show.movieid = movies.movieid  where show.showid = :ShowID;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	"ShowID" : attributes.uriParams.shows_id,
+	"ShowStartTime": payload.ShowStartTime,
+	"ShowEndTime": payload.ShowEndTime,
+	"SeatType" : payload.SeatType,
+	"AvailableSeats": payload.AvailableSeats,
+	
+	
+
+}]]]></db:input-parameters>
+		</db:update>
+		<ee:transform doc:name="Transform Message" doc:id="43361d2c-1176-4351-a653-970eb8b42a01" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  message: "Show updated Successfully!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	
+
+</mule>

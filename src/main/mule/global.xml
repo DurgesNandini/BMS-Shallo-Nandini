@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:rds="http://www.mulesoft.org/schema/mule/rds" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/rds http://www.mulesoft.org/schema/mule/rds/current/mule-rds.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="06c4cf81-88c6-4ee4-95b3-0961cc6fa3e3" file="config.yaml" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0450a320-f4b8-4e3b-b226-a90a2ae0903a" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="81487600-f871-4c8d-b757-b5cc615d4a5e" >
+		<db:mssql-connection host="${moviesdb.host}" port="${moviesdb.port}" user="${moviesdb.user}" password="${moviesdb.password}" databaseName="${moviesdb.dbname}" />
+	</db:config>
+	<api-gateway:autodiscovery apiId="17875758" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="2daf961d-6ea8-4a61-a324-b0ebbf0b3124" flowRef="bookmyshow-shalloo-nandini-main" />
+</mule>

@@ -1,0 +1,16 @@
+http:
+  "host": "0.0.0.0"
+  "port": "8081"
+  
+moviesdb:
+  "host": "bmsdb.cvrmbyao6xi0.eu-west-1.rds.amazonaws.com"
+  "port": "1433"
+  "user": "admin"
+  "password": "admin1234"
+  "dbname": "MyDB"
+awsrds:
+  "id": "AKIAZJQJ7B25IVEU67N5"
+  "key": "ZgiQ6M3SVnYg4NwnflydTcQjxuj1e5I9Mr6vxdP4"
+  "region": "eu-west-1"
+  
+  
