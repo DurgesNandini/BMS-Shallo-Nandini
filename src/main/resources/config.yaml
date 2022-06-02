@@ -8,9 +8,6 @@ moviesdb:
   "user": "admin"
   "password": "admin1234"
   "dbname": "MyDB"
-awsrds:
-  "id": "AKIAZJQJ7B25IVEU67N5"
-  "key": "ZgiQ6M3SVnYg4NwnflydTcQjxuj1e5I9Mr6vxdP4"
-  "region": "eu-west-1"
+
   
   
