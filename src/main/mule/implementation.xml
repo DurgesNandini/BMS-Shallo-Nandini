@@ -149,6 +149,7 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="5f480ebd-c913-484a-a479-0ba407a46847" message="#[payload]"/>
 	</flow>
 	<flow name="DeleteMovieByID" doc:id="9d9b84a6-005e-470d-ac6d-7b9bcef203b7" >
 		<db:delete doc:name="Delete" doc:id="8efdb49b-1356-42b8-8600-ffe273775d75" config-ref="Database_Config">
