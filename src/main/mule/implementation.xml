@@ -412,11 +412,19 @@ payload map(ticket, index)->{
 				<set-payload value='#["Invalid No of Person. Kindly enter the minimum 1 person to book a ticket!"]' doc:name="Invalid No of Person" doc:id="60e48427-33b4-45f3-a641-41bcbc052b92" />
 			</otherwise>
 		</choice>
-		<file:write doc:name="Write" doc:id="6b7792d4-f86c-49a6-ae7a-4c4b21082b5a" config-ref="File_Config" path="ticket.csv">
+		<file:write doc:name="ETicket" doc:id="6b7792d4-f86c-49a6-ae7a-4c4b21082b5a" config-ref="File_Config" path="ticket.csv">
 			<file:content ><![CDATA[#[output application/json
 ---
 payload]]]></file:content>
 		</file:write>
+		<ee:transform doc:name="Transform Message" doc:id="4ad14943-530f-4bb3-b543-6a026df58782" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 	</flow>
 	<flow name="UpdateMovieByID" doc:id="3e1a38ad-7b3f-4b5d-a774-07743dd2b104" >
 		<db:update doc:name="Update" doc:id="eb097918-ec24-48f3-a8b7-eae12c305933" config-ref="Database_Config">
