@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="movies_json" format="json">
+      <types:shape format="weave" example="examples/movies_example.json"><![CDATA[%dw 2.0
+
+type movies_json = Array<{|  MovieID: String,   MovieName: String,   MovieDescription: String,   Price: Number {"typeId": "int"}|}> {"example": "[{\\\"MovieID\\\":\\\"MV100\\\",\\\"MovieName\\\":\\\"Avenger\\\",\\\"MovieDescription\\\":\\\"It is a Marvel movie\\\",\\\"Price\\\":500},{\\\"MovieID\\\":\\\"MV101\\\",\\\"MovieName\\\":\\\"Fast & Furious\\\",\\\"MovieDescription\\\":\\\"Thriller, Action\\\",\\\"Price\\\":600}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="shows_json" format="json">
+      <types:shape format="weave" example="examples/shows_example.json"><![CDATA[%dw 2.0
+
+type shows_json = Array<{|  ShowID: Number {"typeId": "int"},   MovieID: Number {"typeId": "int"},   ShowStartTime: String,   ShowEndTime: String,   SeatType: String,   AvailableSeats: Number {"typeId": "int"},   language: String,   price: Number {"typeId": "int"}|}> {"example": "[{\\\"ShowID\\\":1,\\\"MovieID\\\":101,\\\"ShowStartTime\\\":\\\"2021-10-20T09:00:00.000Z\\\",\\\"ShowEndTime\\\":\\\"2021-10-20T12:00:00.000Z\\\",\\\"SeatType\\\":\\\"Gold\\\",\\\"AvailableSeats\\\":150,\\\"language\\\":\\\"hindi\\\",\\\"price\\\":380},{\\\"ShowID\\\":2,\\\"MovieID\\\":102,\\\"ShowStartTime\\\":\\\"2021-10-20T13:00:00.000Z\\\",\\\"ShowEndTime\\\":\\\"2021-10-20T16:00:00.000Z\\\",\\\"SeatType\\\":\\\"Balcony\\\",\\\"AvailableSeats\\\":120,\\\"language\\\":\\\"english\\\",\\\"price\\\":320},{\\\"ShowID\\\":3,\\\"MovieID\\\":103,\\\"ShowStartTime\\\":\\\"2021-10-20T09:00:00.000Z\\\",\\\"ShowEndTime\\\":\\\"2021-10-20T12:00:00.000Z\\\",\\\"SeatType\\\":\\\"Special\\\",\\\"AvailableSeats\\\":50,\\\"language\\\":\\\"hindi\\\",\\\"price\\\":500}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="movieExample_json" format="json">
+      <types:shape format="weave" example="examples/movie_example-3.json"><![CDATA[%dw 2.0
+
+type movieExample_json = {|
+  MovieID: String, 
+  MovieName: String, 
+  MovieDescription: String, 
+  Price: Number {"typeId": "int"}
+|} {"example": "{\\\"MovieID\\\":\\\"MV102\\\",\\\"MovieName\\\":\\\"Spider Man\\\",\\\"MovieDescription\\\":\\\"It is a Marvel movie\\\",\\\"Price\\\":380}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="ShowNoIDExample_json" format="json">
+      <types:shape format="weave" example="examples/ShowNoID_Example.json"><![CDATA[%dw 2.0
+
+type ShowNoIDExample_json = {|
+  MovieName: String, 
+  ShowStartTime: String, 
+  ShowEndTime: String, 
+  SeatType: String, 
+  AvailableSeats: Number {"typeId": "int"}, 
+  language: String, 
+  Price: Number {"typeId": "int"}
+|} {"example": "{\\\"MovieName\\\":\\\"Spider Man\\\",\\\"ShowStartTime\\\":\\\"2021-10-20T09:00:00.000Z\\\",\\\"ShowEndTime\\\":\\\"2021-10-20T12:00:00.000Z\\\",\\\"SeatType\\\":\\\"Gold\\\",\\\"AvailableSeats\\\":150,\\\"language\\\":\\\"hindi\\\",\\\"Price\\\":380}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="MovieNoIDExample_json" format="json">
+      <types:shape format="weave" example="examples/MovieNoID_Example-1.json"><![CDATA[%dw 2.0
+
+type MovieNoIDExample_json = {|
+  MovieName: String, 
+  MovieDescription: String, 
+  Language: String, 
+  Price: Number {"typeId": "int"}
+|} {"example": "{\\\"MovieName\\\":\\\"Spider Man\\\",\\\"MovieDescription\\\":\\\"It is a Marvel movie\\\",\\\"Language\\\":\\\"Hindi\\\",\\\"Price\\\":300}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="BookTicket_Example_json" format="json">
+      <types:shape format="weave" example="examples/ETicket_Example.json"><![CDATA[%dw 2.0
+
+type BookTicket_Example_json = {|
+  MovieName: String, 
+  Audi: Number {"typeId": "int"}, 
+  date: String, 
+  Time: String, 
+  Seats: Array<Number {"typeId": "int"}>, 
+  Price: Number {"typeId": "int"}, 
+  TotalPrice: Number {"typeId": "int"}
+|} {"example": "{\\\"MovieName\\\":\\\"Bhool Bhulaiya 2\\\",\\\"Audi\\\":4,\\\"date\\\":\\\"26\\/05\\/2022\\\",\\\"Time\\\":\\\"15:00\\\",\\\"Seats\\\":[1,2,3,4],\\\"Price\\\":200,\\\"TotalPrice\\\":800}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="ETicketExample_json" format="json">
+      <types:shape format="weave" example="examples/ETicket_Example-1.json"><![CDATA[%dw 2.0
+
+type ETicketExample_json = {|
+  MovieName: String, 
+  Audi: Number {"typeId": "int"}, 
+  date: String, 
+  Time: String, 
+  Seats: Array<Number {"typeId": "int"}>, 
+  Price: Number {"typeId": "int"}, 
+  TotalPrice: Number {"typeId": "int"}
+|} {"example": "{\\\"MovieName\\\":\\\"Bhool Bhulaiya 2\\\",\\\"Audi\\\":4,\\\"date\\\":\\\"26\\/05\\/2022\\\",\\\"Time\\\":\\\"15:00\\\",\\\"Seats\\\":[1,2,3,4],\\\"Price\\\":200,\\\"TotalPrice\\\":800}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="BulkDiscountTicket_json" format="json">
+      <types:shape format="weave" example="examples/BulkBookETicket_Example.json"><![CDATA[%dw 2.0
+
+type BulkDiscountTicket_json = {|
+  MovieName: String, 
+  Audi: Number {"typeId": "int"}, 
+  date: String, 
+  Time: String, 
+  Seats: Array<Number {"typeId": "int"}>, 
+  Price: Number {"typeId": "int"}, 
+  discount: Number {"typeId": "int"}, 
+  TotalPrice: Number {"typeId": "int"}
+|} {"example": "{\\\"MovieName\\\":\\\"Jug Jug Jiyo\\\",\\\"Audi\\\":15,\\\"date\\\":\\\"26\\/05\\/2022\\\",\\\"Time\\\":\\\"15:00\\\",\\\"Seats\\\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\\\"Price\\\":200,\\\"discount\\\":10,\\\"TotalPrice\\\":2700}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Payload" format="java">
+      <types:shape format="weave" example="weave/autogenerated/490858b6-76f1-4a59-ad86-13f6f8fe2a9a/Input-Payload.wev" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[%dw 2.0
+
+type auto_490858b6_76f1_4a59_ad86_13f6f8fe2a9a_Input_Payload = {|
+  affectedRows?: Number, 
+  generatedKeys?: { _?: Number }
+|} {"typeAlias": "StatementResult",
+"typeId": "org.mule.extension.db.api.StatementResult"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Attributes" format="java">
+      <types:shape format="weave" example="weave/autogenerated/490858b6-76f1-4a59-ad86-13f6f8fe2a9a/Input-Attributes.wev" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[%dw 2.0
+
+type auto_490858b6_76f1_4a59_ad86_13f6f8fe2a9a_Input_Attributes = Null
+
+]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Variables-Show insert" format="java">
+      <types:shape format="raml" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Variables-outboundHeaders" format="java">
+      <types:shape format="weave" example="weave/autogenerated/490858b6-76f1-4a59-ad86-13f6f8fe2a9a/Input-Variables-outboundHeaders.wev" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[%dw 2.0
+
+type auto_490858b6_76f1_4a59_ad86_13f6f8fe2a9a_Input_Variables_outboundHeaders = {|  |}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Variables-httpStatus" format="java">
+      <types:shape format="raml" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Payload" format="json">
+      <types:shape format="weave" example="weave/autogenerated/490858b6-76f1-4a59-ad86-13f6f8fe2a9a/Output-Payload.wev" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[%dw 2.0
+
+type auto_490858b6_76f1_4a59_ad86_13f6f8fe2a9a_Output_Payload = {| message: String |}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Attributes" format="java">
+      <types:shape format="weave" example="weave/autogenerated/490858b6-76f1-4a59-ad86-13f6f8fe2a9a/Output-Attributes.wev" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[%dw 2.0
+
+type auto_490858b6_76f1_4a59_ad86_13f6f8fe2a9a_Output_Attributes = Null
+
+]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Variables-Show insert" format="java">
+      <types:shape format="raml" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Variables-outboundHeaders" format="java">
+      <types:shape format="weave" example="weave/autogenerated/490858b6-76f1-4a59-ad86-13f6f8fe2a9a/Output-Variables-outboundHeaders.wev" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[%dw 2.0
+
+type auto_490858b6_76f1_4a59_ad86_13f6f8fe2a9a_Output_Variables_outboundHeaders = {|  |}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Variables-httpStatus" format="java">
+      <types:shape format="raml" autogeneratedOrigin="9ce4fafe-b9b8-433a-820b-a9aa33d919e2"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#4bad6649-fc9b-4313-8203-2f5a5b288a5d">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="movies_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#766dadd9-399d-4574-865a-0a9f342db0a5">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="shows_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#96a907cd-fb21-4dc3-b5de-ff6a8f508507">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="ShowNoIDExample_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#62f42211-dd4f-4fcd-80ae-f57f59b4e482">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="movieExample_json[]"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#da463766-3236-4671-bba5-6bc52dee3d45">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="MovieNoIDExample_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#52bae145-29f2-4a45-ba8d-ed3525e8dad3">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="BulkDiscountTicket_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#d0243940-990d-4196-8381-8468d7d0e5db">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="BulkDiscountTicket_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#05996ca1-eaeb-4099-8140-d41bb767f6d0">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="BookTicket_Example_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#490858b6-76f1-4a59-ad86-13f6f8fe2a9a">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Payload"/>
+          <types:attributes type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Attributes"/>
+        </types:message>
+        <types:variables>
+          <types:variable name="Show insert" type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Variables-Show insert"/>
+          <types:variable name="outboundHeaders" type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Variables-outboundHeaders"/>
+          <types:variable name="httpStatus" type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Input-Variables-httpStatus"/>
+        </types:variables>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Payload"/>
+          <types:attributes type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Attributes"/>
+        </types:message>
+        <types:variables>
+          <types:variable name="Show insert" type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Variables-Show insert"/>
+          <types:variable name="outboundHeaders" type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Variables-outboundHeaders"/>
+          <types:variable name="httpStatus" type="auto_490858b6-76f1-4a59-ad86-13f6f8fe2a9a_Output-Variables-httpStatus"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
