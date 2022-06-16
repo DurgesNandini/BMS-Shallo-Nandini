@@ -7,7 +7,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
-	<name>BMS-shalloo-nandini</name>
+	<name>BMS</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,22 +31,16 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-				<cloudHubDeployment>
-      				<uri>https://anypoint.mulesoft.com</uri>
-      				<muleVersion>${muleVersion}</muleVersion>
-      				<username>${username}</username>
-      				<password>${password}</password>
-      				<applicationName>${applicationName}</applicationName>
-      				<environment>${environment}</environment>
-	 				<businessGroup>${businessGroup}</businessGroup>
-      				<workerType>${workerType}</workerType>
-	  				<objectStoreV2>true</objectStoreV2>
-      				<properties>
-						<anypoint.platform.client_id>${anypoint.platform.client_id}</anypoint.platform.client_id>
-						<anypoint.platform.client_secret>${anypoint.platform.client_secret}</anypoint.platform.client_secret>
-     		 		</properties>
- 			   </cloudHubDeployment>
- 			   <classifier>mule-application</classifier>
+					<cloudHubDeployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<server>${server}</server>
+						<muleVersion>${app.runtime}</muleVersion>
+						<applicationName>${app.name}</applicationName>
+						<workers>${worker}</workers>
+						<workerType>${workerType}</workerType>
+						<environment>${environment}</environment>
+						<objectStoreV2>true</objectStoreV2>
+					</cloudHubDeployment>
 					<sharedLibraries>
 						<sharedLibrary>
 							<groupId>com.microsoft.sqlserver</groupId>
@@ -144,9 +138,9 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>4c2825dd-e397-4b98-8eb5-fdf4c967c16e</groupId>
-			<artifactId>bms-shalloo-nandini</artifactId>
-			<version>1.0.1</version>
+			<groupId>6ecddfdc-9c0a-4f33-b1a9-d38546404c54</groupId>
+			<artifactId>bookmyshow-shalloo-nandini</artifactId>
+			<version>1.0.2</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
