@@ -144,9 +144,9 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>4c2825dd-e397-4b98-8eb5-fdf4c967c16e</groupId>
-			<artifactId>bms-shalloo-nandini</artifactId>
-			<version>1.0.1</version>
+			<groupId>6ecddfdc-9c0a-4f33-b1a9-d38546404c54</groupId>
+			<artifactId>bookmyshow-shalloo-nandini</artifactId>
+			<version>1.0.2</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>

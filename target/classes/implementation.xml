@@ -61,7 +61,7 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 				</ee:transform>
 			</otherwise>
 		</choice>
-		<logger level="INFO" doc:name="Logger" doc:id="92de9b66-9c16-4781-80d6-b441ebd85d11" message="#[payload]"/>
+		<logger level="INFO" doc:name="get Movies" doc:id="92de9b66-9c16-4781-80d6-b441ebd85d11" message="#[payload]"/>
 	</flow>
 	<flow name="GetMovieByID" doc:id="6566b523-c076-4f35-8b72-46ae3b0e293e" >
 		<db:select doc:name="Select" doc:id="591a654d-cafe-4dcd-8f3e-01dccc635f58" config-ref="Database_Config">

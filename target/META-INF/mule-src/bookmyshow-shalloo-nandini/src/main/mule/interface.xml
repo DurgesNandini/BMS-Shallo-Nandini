@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
-    <apikit:config name="bookmyshow-shalloo-nandini-2-config" api="resource::4c2825dd-e397-4b98-8eb5-fdf4c967c16e:bms-shalloo-nandini:1.0.1:raml:zip:bookmyshow-shalloo-nandini.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" disableValidations="true"/>
-    <flow name="bookmyshow-shalloo-nandini-2-main">
+    <apikit:config name="bookmyshow-shalloo-nandini-3-config" api="resource::6ecddfdc-9c0a-4f33-b1a9-d38546404c54:bookmyshow-shalloo-nandini:1.0.2:raml:zip:bookmyshow-shalloo-nandini.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <flow name="bookmyshow-shalloo-nandini-3-main">
         <http:listener path="/api/*" config-ref="HTTP_Listener_config">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
@@ -11,7 +11,7 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <apikit:router config-ref="bookmyshow-shalloo-nandini-2-config" />
+        <apikit:router config-ref="bookmyshow-shalloo-nandini-3-config" />
         <error-handler>
             <on-error-propagate type="APIKIT:BAD_REQUEST">
                 <ee:transform>
@@ -93,7 +93,7 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="bookmyshow-shalloo-nandini-2-console">
+    <flow name="bookmyshow-shalloo-nandini-3-console">
         <http:listener path="/console/*" config-ref="HTTP_Listener_config">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
@@ -103,7 +103,7 @@ output application/json
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <apikit:console config-ref="bookmyshow-shalloo-nandini-2-config" />
+        <apikit:console config-ref="bookmyshow-shalloo-nandini-3-config" />
         <error-handler>
             <on-error-propagate type="APIKIT:NOT_FOUND">
                 <ee:transform>
@@ -120,40 +120,40 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="put:\book:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="BookTicket" doc:id="77eb9365-40db-4f07-9f74-dff92ac8285a" name="BookTicket" />
+    <flow name="put:\book:application\json:bookmyshow-shalloo-nandini-3-config">
+        <flow-ref doc:name="BookTicket" doc:id="6a835f7c-c123-414c-a5e4-3f1a5c952d56" name="BookTicket"/>
     </flow>
-    <flow name="put:\movies\(movie_id):application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="UpdateMovieByID" doc:id="9c2ca4ae-4ef0-4748-9375-56c7a717de3d" name="UpdateMovieByID" />
+    <flow name="put:\movies\(movie_id):application\json:bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="UpdateMovieByID" doc:id="fedff374-4dd9-4b2e-af55-9995116f0b25" name="UpdateMovieByID" />
     </flow>
-    <flow name="put:\shows\(shows_id):application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="UpdateShowByID" doc:id="c4fae62f-54f5-411c-b3fd-f7c7119cc82e" name="UpdateShowByID" />
+    <flow name="put:\shows\(shows_id):application\json:bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="UpdateShowByID" doc:id="21f132ee-6879-44ab-b203-146820a0c7d4" name="UpdateShowByID" />
     </flow>
-    <flow name="delete:\movies\(movie_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="DeleteMovieByID" doc:id="18acdb94-7a89-44a7-ab7a-e34ce27a538d" name="DeleteMovieByID" />
+    <flow name="delete:\movies\(movie_id):bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="DeleteMovieByID" doc:id="7f83ab42-7376-4d7e-bf30-4cd5bfcdb913" name="DeleteMovieByID" />
     </flow>
-    <flow name="delete:\shows\(shows_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="DeleteShowByID" doc:id="4c7233f9-2df1-4371-9642-dda7eddf6944" name="DeleteShowByID" />
+    <flow name="delete:\shows\(shows_id):bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="DeleteShowByID" doc:id="93358a73-8741-493c-9a0f-1ff5e1bd12b7" name="DeleteShowByID" />
     </flow>
-    <flow name="get:\movies:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetMovies" doc:id="143ff82c-8e48-42db-9a9b-978bb2358d9f" name="GetMovies" />
+    <flow name="get:\movies:bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="GetMovies" doc:id="b47aab5d-5d77-4a93-8a04-c3f368b6e814" name="GetMovies" />
     </flow>
-    <flow name="get:\shows:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetShows" doc:id="f7aa2303-51ab-4fd4-b8b3-85b8d36448ad" name="GetShows" />
+    <flow name="get:\shows:bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="GetShows" doc:id="e5970f9a-f675-4376-984e-4504cce50277" name="GetShows" />
     </flow>
-    <flow name="get:\movies\(movie_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetMovieByID" doc:id="6ed185a7-86e2-4a36-9c46-7fff9a4f4574" name="GetMovieByID" />
+    <flow name="get:\movies\(movie_id):bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="GetMovieByID" doc:id="8b605e92-cedb-40d1-89a7-03bf9bb0f384" name="GetMovieByID" />
     </flow>
-    <flow name="get:\shows\(shows_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetShowByID" doc:id="2d60e4ba-924b-4b82-a65b-ae3cea580eb1" name="GetShowByID" />
+    <flow name="get:\shows\(shows_id):bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="GetShowByID" doc:id="dc97ea3b-7e62-4512-a08a-9b14f0cf46df" name="GetShowByID" />
     </flow>
-    <flow name="post:\book:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="BookTicket" doc:id="8d31ca79-d384-482b-bb8a-cdd479fdbc2d" name="BookTicket" />
+    <flow name="post:\book:application\json:bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="BookTicket" doc:id="84fb9278-4b8c-40d2-b418-02d475a3f837" name="BookTicket" />
     </flow>
-    <flow name="post:\movies:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="InsertMovies" doc:id="5bdfc071-0538-49c6-9420-233920c7b28d" name="InsertMovies" />
+    <flow name="post:\movies:application\json:bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="InsertMovies" doc:id="694cbe9d-39a9-43a3-811c-65b191122206" name="InsertMovies" />
     </flow>
-    <flow name="post:\shows:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="AddShow" doc:id="1532944f-4814-4530-95ae-22eca8087047" name="AddShow" />
+    <flow name="post:\shows:application\json:bookmyshow-shalloo-nandini-3-config">
+		<flow-ref doc:name="AddShow" doc:id="c2da4269-f81c-49da-a195-e2f26e6a0cd8" name="AddShow" />
     </flow>
 </mule>
