@@ -121,39 +121,39 @@ output application/json
         </error-handler>
     </flow>
     <flow name="put:\book:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="BookTicket" doc:id="fcd6301f-450a-499e-8b53-49aa8dd7f82d" name="BookTicket" />
+		<flow-ref doc:name="BookTicket" doc:id="77eb9365-40db-4f07-9f74-dff92ac8285a" name="BookTicket" />
     </flow>
     <flow name="put:\movies\(movie_id):application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="UpdateMovieByID" doc:id="ef1b4bbe-0856-4694-9523-a489230ba65e" name="UpdateMovieByID" />
+		<flow-ref doc:name="UpdateMovieByID" doc:id="9c2ca4ae-4ef0-4748-9375-56c7a717de3d" name="UpdateMovieByID" />
     </flow>
     <flow name="put:\shows\(shows_id):application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="UpdateShowByID" doc:id="089a9b49-54b5-49a0-af5d-7b82c9008cac" name="UpdateShowByID" />
+		<flow-ref doc:name="UpdateShowByID" doc:id="c4fae62f-54f5-411c-b3fd-f7c7119cc82e" name="UpdateShowByID" />
     </flow>
     <flow name="delete:\movies\(movie_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="DeleteMovieByID" doc:id="b505cd3d-e84d-4638-8c3e-46ea3c7bc510" name="DeleteMovieByID" />
+		<flow-ref doc:name="DeleteMovieByID" doc:id="18acdb94-7a89-44a7-ab7a-e34ce27a538d" name="DeleteMovieByID" />
     </flow>
     <flow name="delete:\shows\(shows_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="DeleteShowByID" doc:id="d8102d2f-5af5-48ec-ac82-0e32c03aa980" name="DeleteShowByID" />
+		<flow-ref doc:name="DeleteShowByID" doc:id="4c7233f9-2df1-4371-9642-dda7eddf6944" name="DeleteShowByID" />
     </flow>
     <flow name="get:\movies:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetMovies" doc:id="6cf736d2-519d-4051-b1c5-e5641fa723ac" name="GetMovies" />
+		<flow-ref doc:name="GetMovies" doc:id="143ff82c-8e48-42db-9a9b-978bb2358d9f" name="GetMovies" />
     </flow>
     <flow name="get:\shows:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetShows" doc:id="b289f299-d801-4682-ba3b-f64e72cea8ca" name="GetShows" />
+		<flow-ref doc:name="GetShows" doc:id="f7aa2303-51ab-4fd4-b8b3-85b8d36448ad" name="GetShows" />
     </flow>
     <flow name="get:\movies\(movie_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetMovieByID" doc:id="7749cd12-dd83-4636-a90d-d3995f5f13c0" name="GetMovieByID" />
+		<flow-ref doc:name="GetMovieByID" doc:id="6ed185a7-86e2-4a36-9c46-7fff9a4f4574" name="GetMovieByID" />
     </flow>
     <flow name="get:\shows\(shows_id):bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="GetShowByID" doc:id="fd6acbeb-1d5c-463a-9e1b-b66bf659aabf" name="GetShowByID" />
+		<flow-ref doc:name="GetShowByID" doc:id="2d60e4ba-924b-4b82-a65b-ae3cea580eb1" name="GetShowByID" />
     </flow>
     <flow name="post:\book:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="BookTicket" doc:id="61647c48-2a9b-4b57-ba15-08e2360275ae" name="BookTicket" />
+		<flow-ref doc:name="BookTicket" doc:id="8d31ca79-d384-482b-bb8a-cdd479fdbc2d" name="BookTicket" />
     </flow>
     <flow name="post:\movies:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="InsertMovies" doc:id="99a86882-c575-4328-aa94-3904c959ca46" name="InsertMovies" />
+		<flow-ref doc:name="InsertMovies" doc:id="5bdfc071-0538-49c6-9420-233920c7b28d" name="InsertMovies" />
     </flow>
     <flow name="post:\shows:application\json:bookmyshow-shalloo-nandini-2-config">
-		<flow-ref doc:name="AddShow" doc:id="16f8b82d-6049-4701-b7bd-08cd5c4f6a77" name="AddShow" />
+		<flow-ref doc:name="AddShow" doc:id="1532944f-4814-4530-95ae-22eca8087047" name="AddShow" />
     </flow>
 </mule>
