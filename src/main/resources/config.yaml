@@ -1,10 +1,6 @@
 http:
   "host": "0.0.0.0"
   "port": "8081"
-
-https:
-  "host": "localhost"
-  "port": "8082"
     
 moviesdb:
   "host": "bms.cdauio8pvb3a.us-east-2.rds.amazonaws.com"

@@ -13,10 +13,7 @@ http://www.mulesoft.org/schema/mule/book-ticket-shalloo-nandini http://www.mules
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
 	<configuration-properties doc:name="Configuration properties" doc:id="06c4cf81-88c6-4ee4-95b3-0961cc6fa3e3" file="config.yaml" />
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0450a320-f4b8-4e3b-b226-a90a2ae0903a" >
-		<http:listener-connection host="${https.host}" port="${https.port}" protocol="HTTPS">
-			<tls:context >
-				<tls:key-store type="jks" path="mule.jks" keyPassword="password" password="password" />
-			</tls:context>
+		<http:listener-connection host="${http.host}" port="${http.port}">
 		</http:listener-connection>
 	</http:listener-config>
 	<db:config name="Database_Config" doc:name="Database Config" doc:id="81487600-f871-4c8d-b757-b5cc615d4a5e" >
