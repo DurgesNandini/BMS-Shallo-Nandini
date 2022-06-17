@@ -61,7 +61,6 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 				</ee:transform>
 			</otherwise>
 		</choice>
-		<logger level="INFO" doc:name="get Movies" doc:id="92de9b66-9c16-4781-80d6-b441ebd85d11" message="#[payload]"/>
 	</flow>
 	<flow name="GetMovieByID" doc:id="6566b523-c076-4f35-8b72-46ae3b0e293e" >
 		<db:select doc:name="Select" doc:id="591a654d-cafe-4dcd-8f3e-01dccc635f58" config-ref="Database_Config">
@@ -313,7 +312,8 @@ output application/json
 				</on-error-continue>
 			</error-handler>
 		</try>
-	</flow>
+	
+</flow>
 	<flow name="BookTicket" doc:id="ff8d8f8d-39e2-47d1-aadb-2d2f622fca67" >
 		<choice doc:name="Choice" doc:id="843cb096-d1a7-474a-b883-bcf3a5a76439" >
 			<when expression="#[(payload.NoOfPerson&gt;=1 and payload.NoOfPerson&lt;10)]">
@@ -429,7 +429,22 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-	</flow>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="c32de268-fbc1-4d24-903e-94fba219e75a" type="DB:QUERY_EXECUTION">
+				<ee:transform doc:name="Incorrect details" doc:id="e07c6b40-b731-4b6a-8c94-255902f822cd" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Give correct details!"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-continue>
+		</error-handler>
+	
+</flow>
 	<flow name="UpdateMovieByID" doc:id="8ca99a6d-cf43-4e11-8e53-f395cd6913ce" >
 		<db:update doc:name="Update" doc:id="4c3b2515-bd9b-40f1-a16e-645431a0c7eb" config-ref="Database_Config">
 			<db:sql ><![CDATA[update movies set moviename = :MovieName, moviedescription = :MovieDescription,

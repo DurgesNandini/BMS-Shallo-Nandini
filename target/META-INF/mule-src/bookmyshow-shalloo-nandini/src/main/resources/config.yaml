@@ -1,9 +1,13 @@
 http:
   "host": "0.0.0.0"
   "port": "8081"
-  
+
+https:
+  "host": "localhost"
+  "port": "8082"
+    
 moviesdb:
-  "host": "bmsdb.cvrmbyao6xi0.eu-west-1.rds.amazonaws.com"
+  "host": "bms.cdauio8pvb3a.us-east-2.rds.amazonaws.com"
   "port": "1433"
   "user": "admin"
   "password": "admin1234"
