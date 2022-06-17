@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:book-ticket-shalloo-nandini="http://www.mulesoft.org/schema/mule/book-ticket-shalloo-nandini" xmlns:file="http://www.mulesoft.org/schema/mule/file"
-	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-	xmlns:rds="http://www.mulesoft.org/schema/mule/rds" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:book-ticket-shalloo-nandini="http://www.mulesoft.org/schema/mule/book-ticket-shalloo-nandini"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:rds="http://www.mulesoft.org/schema/mule/rds" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
 http://www.mulesoft.org/schema/mule/rds http://www.mulesoft.org/schema/mule/rds/current/mule-rds.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
-http://www.mulesoft.org/schema/mule/book-ticket-shalloo-nandini http://www.mulesoft.org/schema/mule/book-ticket-shalloo-nandini/current/mule-book-ticket-shalloo-nandini.xsd">
+http://www.mulesoft.org/schema/mule/book-ticket-shalloo-nandini http://www.mulesoft.org/schema/mule/book-ticket-shalloo-nandini/current/mule-book-ticket-shalloo-nandini.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
 	<configuration-properties doc:name="Configuration properties" doc:id="06c4cf81-88c6-4ee4-95b3-0961cc6fa3e3" file="config.yaml" />
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0450a320-f4b8-4e3b-b226-a90a2ae0903a" >
-		<http:listener-connection host="${http.host}" port="${http.port}" />
+		<http:listener-connection host="${https.host}" port="${https.port}" protocol="HTTPS">
+			<tls:context >
+				<tls:key-store type="jks" path="mule.jks" keyPassword="password" password="password" />
+			</tls:context>
+		</http:listener-connection>
 	</http:listener-config>
 	<db:config name="Database_Config" doc:name="Database Config" doc:id="81487600-f871-4c8d-b757-b5cc615d4a5e" >
 		<db:mssql-connection host="${moviesdb.host}" port="${moviesdb.port}" user="${moviesdb.user}" password="${moviesdb.password}" databaseName="${moviesdb.dbname}" />
