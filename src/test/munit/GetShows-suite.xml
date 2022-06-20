@@ -8,50 +8,6 @@
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 	<munit:config name="GetShows-suite.xml" />
-	<munit:test name="GetShows-test" doc:id="c03ac3cd-e92c-479b-92de-80f002d8a562" >
-		<munit:behavior >
-			<munit:set-event doc:name="Set Input" doc:id="1533e9d8-956a-4360-b2bf-71d6d5da1242" >
-				<munit:payload value="#[readUrl('classpath://GetShowstest\set-event_payload.dwl')]" encoding="UTF-8" />
-				<munit:attributes value="#[readUrl('classpath://GetShowstest\set-event_attributes.dwl')]" />
-				<munit:variables >
-					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://GetShowstest\set-event_variable_.dwl')]" />
-				</munit:variables>
-			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
-			<flow-ref doc:name="Flow-ref to GetShows" doc:id="b1da9bee-e493-423f-bf34-c99711a22a71" name="GetShows"/>
-		</munit:execution>
-		<munit:validation >
-			<munit-tools:assert doc:name="Assert payload" doc:id="34484f56-8c4f-47d2-b107-cdacc5bc6d38" message="The payload does not match">
-				<munit-tools:that ><![CDATA[#[%dw 2.0
-import GetShowstest::assert_expression_payload
----
-assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
-			</munit-tools:assert>
-		</munit:validation>
-	</munit:test>
-	<munit:test name="GetShows_language_SeatType-test1" doc:id="0a15b445-a6f8-4376-8bf2-3f69ca4af24a" >
-		<munit:behavior >
-			<munit:set-event doc:name="Set Input" doc:id="5e60d2f6-30f8-4591-b873-eb730eb4a4d7" >
-				<munit:payload value="#[readUrl('classpath://GetShowstest1\set-event_payload.dwl')]" encoding="UTF-8" />
-				<munit:attributes value="#[readUrl('classpath://GetShowstest1\set-event_attributes.dwl')]" />
-				<munit:variables >
-					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://GetShowstest1\set-event_variable_.dwl')]" />
-				</munit:variables>
-			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
-			<flow-ref doc:name="Flow-ref to GetShows" doc:id="8f550c0f-97c0-45dc-aacf-2a839e19f32a" name="GetShows"/>
-		</munit:execution>
-		<munit:validation >
-			<munit-tools:assert doc:name="Assert payload" doc:id="0f5f0159-ab92-4f7e-8440-ec7f9ff65336" message="The payload does not match">
-				<munit-tools:that ><![CDATA[#[%dw 2.0
-import GetShowstest1::assert_expression_payload
----
-assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
-			</munit-tools:assert>
-		</munit:validation>
-	</munit:test>
 	<munit:test name="GetShows_OnlyLanguage-test2" doc:id="cbbcf734-ca4d-409f-88a4-b678fece72eb" >
 		<munit:behavior >
 			<munit:set-event doc:name="Set Input" doc:id="90e76f1d-90fd-46d0-8d14-e04f3f8306f4" >
@@ -157,6 +113,50 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 			<munit-tools:assert doc:name="Assert payload" doc:id="22ea2104-9d0e-4403-9805-b6e968281bce" message="The payload does not match">
 				<munit-tools:that ><![CDATA[#[%dw 2.0
 import DeleteShowByIDtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="GetAllShows" doc:id="35886df9-9630-4940-989f-472de7f0c0b7" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="bc123258-e943-4ace-b0de-210b7547d1d1" >
+				<munit:payload value="#[readUrl('classpath://GetAllShows\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://GetAllShows\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://GetAllShows\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to GetShows" doc:id="5aa9c93b-e7e1-4d91-b46f-254fad2c88fc" name="GetShows"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="d4a8b1e0-b48e-494b-a1f4-072eadd5cb74" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import GetAllShows::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="language_and_SeatType" doc:id="e85147fa-52a5-435a-918f-207d06af292b" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="fe581e41-c611-4814-a6ed-90b05d81ae26" >
+				<munit:payload value="#[readUrl('classpath://languageandSeatType\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://languageandSeatType\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://languageandSeatType\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to GetShows" doc:id="836708c3-e6df-4483-9f20-4bdb47432620" name="GetShows"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="2f02cadf-b1b3-4c64-a758-05846dad4187" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import languageandSeatType::assert_expression_payload
 ---
 assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
 			</munit-tools:assert>

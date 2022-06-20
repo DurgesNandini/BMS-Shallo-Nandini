@@ -5,7 +5,7 @@ payload must equalTo([
   {
     "MovieName": "RRR",
     "MovieDescription": "This is Raj mouli Movie",
-    "Language": "hindi",
+    "Language": "Hindi",
     "Price": 200
   }
 ])

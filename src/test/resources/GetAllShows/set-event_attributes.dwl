@@ -4,7 +4,7 @@
     "client_secret": "839F096c270042f29470602db315316E",
     "user-agent": "PostmanRuntime/7.29.0",
     "accept": "*/*",
-    "postman-token": "c8fdbfe1-d777-4729-a5a4-4abba7b95a7c",
+    "postman-token": "113fb4b8-d015-44e6-98db-783e68903c68",
     "host": "localhost:8081",
     "accept-encoding": "gzip, deflate, br",
     "connection": "keep-alive"
@@ -18,11 +18,11 @@
   "version": "HTTP/1.1",
   "maskedRequestPath": "/shows",
   "listenerPath": "/api/*",
-  "relativePath": "/api/shows",
   "localAddress": "/127.0.0.1:8081",
+  "relativePath": "/api/shows",
   "uriParams": {},
   "rawRequestUri": "/api/shows",
   "rawRequestPath": "/api/shows",
-  "remoteAddress": "/127.0.0.1:61277",
+  "remoteAddress": "/127.0.0.1:60208",
   "requestPath": "/api/shows"
 }

@@ -4,7 +4,7 @@
     "client_secret": "839F096c270042f29470602db315316E",
     "user-agent": "PostmanRuntime/7.29.0",
     "accept": "*/*",
-    "postman-token": "c8fdbfe1-d777-4729-a5a4-4abba7b95a7c",
+    "postman-token": "2e09a02d-444e-4b87-b476-a86d0b2dfa85",
     "host": "localhost:8081",
     "accept-encoding": "gzip, deflate, br",
     "connection": "keep-alive"
@@ -13,16 +13,18 @@
   "method": "GET",
   "scheme": "http",
   "queryParams": {},
-  "requestUri": "/api/shows",
+  "requestUri": "/api/movies/MV101",
   "queryString": "",
   "version": "HTTP/1.1",
-  "maskedRequestPath": "/shows",
+  "maskedRequestPath": "/movies/MV101",
   "listenerPath": "/api/*",
-  "relativePath": "/api/shows",
+  "relativePath": "/api/movies/MV101",
   "localAddress": "/127.0.0.1:8081",
-  "uriParams": {},
-  "rawRequestUri": "/api/shows",
-  "rawRequestPath": "/api/shows",
-  "remoteAddress": "/127.0.0.1:61277",
-  "requestPath": "/api/shows"
+  "uriParams": {
+    "movie_id": "MV101"
+  },
+  "rawRequestUri": "/api/movies/MV101",
+  "rawRequestPath": "/api/movies/MV101",
+  "remoteAddress": "/127.0.0.1:49181",
+  "requestPath": "/api/movies/MV101"
 }

@@ -1,7 +1,7 @@
 {
   "headers": {
-    "client_id": "c0f7de5d67de40febe8a6ce17ddcf13d",
-    "client_secret": "af4DA819F52240Bb9E9767E19fC7dD1C",
+    "client_id": "d626b7529b2b4deb9c4b2bdc8ca73292",
+    "client_secret": "839F096c270042f29470602db315316E",
     "user-agent": "PostmanRuntime/7.29.0",
     "accept": "*/*",
     "postman-token": "b781667d-d135-41e0-bba2-6ef45e080816",

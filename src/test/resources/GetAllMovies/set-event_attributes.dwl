@@ -4,7 +4,7 @@
     "client_secret": "839F096c270042f29470602db315316E",
     "user-agent": "PostmanRuntime/7.29.0",
     "accept": "*/*",
-    "postman-token": "c8fdbfe1-d777-4729-a5a4-4abba7b95a7c",
+    "postman-token": "32b5f11e-4e3f-4de8-b4e4-501dd8b7e43f",
     "host": "localhost:8081",
     "accept-encoding": "gzip, deflate, br",
     "connection": "keep-alive"
@@ -13,16 +13,16 @@
   "method": "GET",
   "scheme": "http",
   "queryParams": {},
-  "requestUri": "/api/shows",
+  "requestUri": "/api/movies",
   "queryString": "",
   "version": "HTTP/1.1",
-  "maskedRequestPath": "/shows",
+  "maskedRequestPath": "/movies",
   "listenerPath": "/api/*",
-  "relativePath": "/api/shows",
+  "relativePath": "/api/movies",
   "localAddress": "/127.0.0.1:8081",
   "uriParams": {},
-  "rawRequestUri": "/api/shows",
-  "rawRequestPath": "/api/shows",
-  "remoteAddress": "/127.0.0.1:61277",
-  "requestPath": "/api/shows"
+  "rawRequestUri": "/api/movies",
+  "rawRequestPath": "/api/movies",
+  "remoteAddress": "/127.0.0.1:50955",
+  "requestPath": "/api/movies"
 }
